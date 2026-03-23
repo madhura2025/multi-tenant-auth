@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'tenants',
     'accounts',
     'authn',
+    'simpleauth',
 ]
 
 MIDDLEWARE = [

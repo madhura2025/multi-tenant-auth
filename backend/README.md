@@ -2,6 +2,8 @@
 
 This project is a starter backend for multi-tenant authentication and authorization.
 
+Architecture diagrams: see `ARCHITECTURE.md`.
+
 ## Features
 
 - Tenant model (`tenants.Tenant`)
@@ -50,6 +52,7 @@ python manage.py runserver
 - `POST /api/v1/auth/logout/`
 - `GET /api/v1/auth/me/`
 - `GET /api/v1/auth/admin-only/`
+- `POST /api/v1/simple-auth/login/` (email + password only)
 
 ## Sample Login Payload
 

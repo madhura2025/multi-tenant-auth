@@ -13,7 +13,7 @@ Architecture diagrams: see `ARCHITECTURE.md`.
   - `role` (`admin`, `user`)
 - Same email allowed across different tenants
 - Login requires `tenant_id + email + password`
-- JWT auth (access + refresh, refresh rotation enabled)
+- Custom JWT auth (self-managed access + refresh, refresh rotation enabled)
 - Role-protected endpoint example (`admin-only`)
 
 ## Quickstart

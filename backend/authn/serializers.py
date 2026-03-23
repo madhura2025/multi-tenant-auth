@@ -1,8 +1,8 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
-from rest_framework_simplejwt.tokens import RefreshToken
 
 from accounts.models import User, UserRole
+from authn.token_service import create_token_pair_for_user
 from tenants.models import Tenant
 
 
@@ -54,16 +54,4 @@ class LoginSerializer(serializers.Serializer):
 
 
 def token_response_for_user(user: User):
-    refresh = RefreshToken.for_user(user)
-    refresh["tenant_id"] = str(user.tenant_id)
-    refresh["role"] = user.role
-    return {
-        "access": str(refresh.access_token),
-        "refresh": str(refresh),
-        "user": {
-            "id": str(user.id),
-            "tenant_id": str(user.tenant_id),
-            "email": user.email,
-            "role": user.role,
-        },
-    }
+    return create_token_pair_for_user(user)

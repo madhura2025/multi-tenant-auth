@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework_simplejwt.token_blacklist',
     'tenants',
     'accounts',
     'authn',
@@ -135,19 +134,16 @@ AUTHENTICATION_BACKENDS = [
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "authn.authentication.CustomJWTAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": (
         "rest_framework.permissions.IsAuthenticated",
     ),
 }
 
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
-    "ROTATE_REFRESH_TOKENS": True,
-    "BLACKLIST_AFTER_ROTATION": True,
-    "ALGORITHM": "HS256",
-    "SIGNING_KEY": SECRET_KEY,
-    "AUTH_HEADER_TYPES": ("Bearer",),
-}
+JWT_ACCESS_LIFETIME = timedelta(minutes=15)
+JWT_REFRESH_LIFETIME = timedelta(days=7)
+JWT_ALGORITHM = "HS256"
+JWT_SIGNING_KEY = SECRET_KEY
+JWT_ISSUER = os.getenv("JWT_ISSUER", "tenant-auth-service")
+JWT_AUDIENCE = os.getenv("JWT_AUDIENCE", "tenant-auth-clients")
